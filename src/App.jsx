@@ -7,10 +7,7 @@ function App() {
 
   const getBorderColor = (path) => {
     const pathArr = loc.pathname.split("/");
-    if (
-      pathArr[pathArr.length - 1] === "" ||
-      pathArr[pathArr.length - 1] === path
-    )
+    if (path.includes(pathArr[pathArr.length - 1]))
       return "#000";
     else return "#efefef";
   };
@@ -46,7 +43,7 @@ function App() {
           onClick={() => navigate("/overview")}
           className="w-[200px] border-b-[2px] border-solid py-3"
           style={{
-            borderColor: getBorderColor("overview"),
+            borderColor: getBorderColor(["overview", ""]),
           }}
         >
           <h1 className="text-center">Overview</h1>
@@ -58,7 +55,7 @@ function App() {
           }}
           className="w-[200px] border-b-[2px] border-solid  py-3"
           style={{
-            borderColor: getBorderColor("other"),
+            borderColor: getBorderColor(["other"]),
           }}
         >
           <h1 className="text-center">Other</h1>
