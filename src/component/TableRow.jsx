@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { expandRow } from "../features/workOrder";
 
 const TableRow = ({ data, margin, depth, onSelect }) => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+
 
   const handleOpen = () => {
     setOpen(() => !open);
+    dispatch(expandRow({id: data.id}));
   };
 
   const getGap = (index) => {
@@ -99,7 +104,7 @@ const TableRow = ({ data, margin, depth, onSelect }) => {
          
           className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
         >
-          {!open ? 
+          {!data.expanded ? 
           (data.subPackages.length > 0 && <button onClick={handleOpen}>
             {depth === 0 ? <svg
             fill="#5ffae3"
@@ -149,7 +154,7 @@ const TableRow = ({ data, margin, depth, onSelect }) => {
           </button>)}
         </td>
       </tr>
-      {open &&
+      {data.expanded &&
         data.subPackages.map((item) => {
           return (
             <TableRow
